@@ -1,0 +1,49 @@
+body {
+    background-color: #f8eba2;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #2c3e50;
+    margin: 0;
+    padding: 20px;
+}
+
+
+h1 {
+    color: #1a5276;
+    border-bottom: 2px solid #1a5276;
+}
+h2 {
+    color: #481a76;
+    margin-top: 20px;
+}
+p {
+    color: #103d0d;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.marcador {
+    background-color: #f1c40f;
+    color: #000;
+    font-weight: bold;
+}
+/* 1. Quitamos los puntos de la lista y la convertimos en fila */
+nav ul {
+    list-style-type: none; /* Quita los puntitos negros */
+    padding: 0;            /* Quita el espacio izquierdo por defecto */
+    margin: 0;             /* Quita márgenes externos */
+    display: flex;         /* ¡La magia! Convierte la lista en una fila */
+    gap: 20px;             /* Controla la separación entre cada opción del menú */
+}
+
+/* 2. (Opcional) Estilo para que los enlaces se vean más modernos */
+nav a {
+    text-decoration: none; /* Quita la línea de subrayado */
+    color: #1a5276;        /* Usa el mismo azul de tus títulos */
+    font-weight: bold;     /* Hace la letra un poco más gruesa */
+    transition: color 0.3s ease; /* Suaviza el cambio de color al pasar el mouse */
+}
+
+/* 3. Efecto visual cuando el usuario pasa el mouse por encima */
+nav a:hover {
+    color: #f1c40f;        /* Cambia al color amarillo de tu marcador */
+}

@@ -3,6 +3,6 @@ from . import views
 
 urlpatterns = [
     path('', views.inicio, name='inicio'),
-    path('posts/', views.lista_posts, name='lista_posts'), # <--- Coincide con 'lista_posts'
+    path('posts/', views.lista_posts, name='lista_posts'),
     path('acerca/', views.acerca, name='acerca'),
 ]
