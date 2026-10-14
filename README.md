@@ -35,3 +35,6 @@ Abrir en el navegador:
 http://127.0.0.1:8000/
 Aplicaciones
 - posts: aplicación inicial para manejar las publicaciones del blog.
+
+# Actualizacion del blog!
+se agregaron estilos con css y la navegacion por urls
