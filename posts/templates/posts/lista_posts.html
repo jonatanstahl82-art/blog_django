@@ -3,4 +3,19 @@
 {% block content %}
     <h2>Lista de Posts.</h2>
     <p>Aquí está la lista de todos los posts.</p>
+    <ol>
+        {% for post in posts %}
+            <li style="background-color: #f0f0f0; padding: 10px; margin-bottom: 5px;">
+                <h3 style="font-family: 'Helvetica Neue', Arial, sans-serif; "><strong>{{ post.titulo }}</strong></h3>
+                <h4 style="font-family: 'Helvetica Neue', Arial, sans-serif; "><strong>Autor:</strong> {{ post.autor }}</h4>
+                <p><strong>Contenido:</strong> {{ post.contenido|truncatewords:20 }}</p>
+                <p><strong>Fecha de creación:</strong> {{ post.fecha_creacion }}</p>
+                <p><strong>Estado:</strong> {{ post.estado }}</p>
+            </li>
+        {% empty %}
+            <li>No hay posts disponibles.</li>
+        {% endfor %}
+    </ol>
 {% endblock %}
+
+
