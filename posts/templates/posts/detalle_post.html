@@ -6,6 +6,9 @@
     <p><strong>Contenido:</strong> {{ post.contenido }}</p>
     <p><strong>Fecha de creación:</strong> {{ post.fecha_creacion }}</p>
     <p><strong>Estado:</strong> {{ post.estado }}</p>
-    <img src="{{ post.imagen.url }}" alt="Imagen del post" style="max-width: 200px; max-height: 200px; margin-top: 10px;">
-    </form>
+    {% if post.imagen %}    
+        <img src="{{ post.imagen.url }}" alt="Imagen del post" style="max-width: 200px; max-height: 200px; margin-top: 10px;">
+    {% else %}
+        <p>No hay imagen disponible para este post.</p>
+    {% endif %}
 {% endblock %}
