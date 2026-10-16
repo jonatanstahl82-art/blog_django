@@ -1,20 +1,43 @@
+/* ==========================================
+   1. FUENTES PERSONALIZADAS
+   ========================================== */
+@font-face {
+    font-family: 'Play-Bold';
+    src: url('../fonts/Play-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Play-Regular';
+    src: url('../fonts/Play-Regular.ttf') format('truetype');
+}
+
+/* ==========================================
+   2. ESTILOS GENERALES
+   ========================================== */
 body {
-    background-color: #f8eba2;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    color: #2c3e50;
+    background-color: #b9b598;
+    font-family: 'Play-Regular', sans-serif;
+    color: #000000;
     margin: 0;
     padding: 20px;
 }
 
+/* Encabezados */
+h1, h2, h3 {
+    font-family: 'Play-Bold', sans-serif;
+}
 
 h1 {
     color: #1a5276;
     border-bottom: 2px solid #1a5276;
 }
+
 h2 {
     color: #481a76;
     margin-top: 20px;
 }
+
+/* Textos */
 p {
     color: #103d0d;
     line-height: 1.6;
@@ -26,24 +49,59 @@ p {
     color: #000;
     font-weight: bold;
 }
-/* 1. Quitamos los puntos de la lista y la convertimos en fila */
+
+/* ==========================================
+   3. NAVEGACIÓN (NAVBAR)
+   ========================================== */
 nav ul {
-    list-style-type: none; /* Quita los puntitos negros */
-    padding: 0;            /* Quita el espacio izquierdo por defecto */
-    margin: 0;             /* Quita márgenes externos */
-    display: flex;         /* ¡La magia! Convierte la lista en una fila */
-    gap: 20px;             /* Controla la separación entre cada opción del menú */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
 }
 
-/* 2. (Opcional) Estilo para que los enlaces se vean más modernos */
 nav a {
-    text-decoration: none; /* Quita la línea de subrayado */
-    color: #1a5276;        /* Usa el mismo azul de tus títulos */
-    font-weight: bold;     /* Hace la letra un poco más gruesa */
-    transition: color 0.3s ease; /* Suaviza el cambio de color al pasar el mouse */
+    text-decoration: none;
+    color: #1a5276;
+    font-weight: bold;
+    transition: color 0.3s ease;
 }
 
-/* 3. Efecto visual cuando el usuario pasa el mouse por encima */
 nav a:hover {
-    color: #f1c40f;        /* Cambia al color amarillo de tu marcador */
+    color: #f1c40f;
+}
+
+/* ==========================================
+   4. FORMULARIOS & TARJETAS
+   ========================================== */
+.form-card {
+    background-color: #ffffff;
+    max-width: 550px;
+    margin: 30px auto;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.form-card input[type="text"],
+.form-card textarea,
+.form-card select {
+    width: 100%;
+    border: none;
+    background-color: #f1f3f5;
+    border-radius: 10px;
+    padding: 12px 16px;
+    outline: none;
+    box-sizing: border-box;
+    margin-bottom: 18px;
+}
+
+.btn-submit {
+    background-color: #4c6ef5;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 28px;
+    cursor: pointer;
 }

@@ -1,0 +1,11 @@
+{% extends 'posts/base.html' %}
+
+{% block content %}
+    <h2>Detalle del Post</h2>
+    <p><strong>Título:</strong> {{ post.titulo }}</p>
+    <p><strong>Contenido:</strong> {{ post.contenido }}</p>
+    <p><strong>Fecha de creación:</strong> {{ post.fecha_creacion }}</p>
+    <p><strong>Estado:</strong> {{ post.estado }}</p>
+    <img src="{{ post.imagen.url }}" alt="Imagen del post" style="max-width: 200px; max-height: 200px; margin-top: 10px;">
+    </form>
+{% endblock %}

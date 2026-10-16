@@ -11,6 +11,12 @@
                 <p><strong>Contenido:</strong> {{ post.contenido|truncatewords:20 }}</p>
                 <p><strong>Fecha de creación:</strong> {{ post.fecha_creacion }}</p>
                 <p><strong>Estado:</strong> {{ post.estado }}</p>
+                <a href="{% url 'editar_post' post.id %}" style="color: #007BFF; text-decoration: none;">Editar</a> |
+                <a href="{% url 'detalle_post' post.id %}" style="color: #007BFF; text-decoration: none;">Ver Detalle</a> |
+                <a href="{% url 'post_confirm_delete' post.id %}" style="color: #DC3545; text-decoration: none;">Eliminar</a>
+                {% if post.imagen %}
+                    <img src="{{ post.imagen.url }}" alt="Imagen del post" style="max-width: 200px; max-height: 200px; margin-top: 10px;">
+                {% endif %}
             </li>
         {% empty %}
             <li>No hay posts disponibles.</li>
