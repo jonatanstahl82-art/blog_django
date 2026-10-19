@@ -85,12 +85,27 @@ Para permitir que los usuarios puedan subir y visualizar imágenes en las public
 # Actualización Preentrega 11: Autenticación, Usuarios y Perfiles en Django
 
 ## Cambios en la estructura
-    se agregaron archivos necesarios para las funciones CRUD
-        posts/templates/posts/detalle_post.html
-        posts/templates/posts/post_form.html
-        posts/templates/posts/post_confirm_delete.html
-        posts/forms.py
-
+    Creada la app cuentas_usuarios
+    archivos de python creados:
+        admin
+        apps
+        forms
+        models
+        tests
+        urls
+        views
+         
+    
+    Se agregaron archivos necesarios para las funciones de creación, edicion y eliminacionde perfiles y posts
+        posts/templates/posts/error_permisos.html
+        cuentas_usuarios/templates/cuentas_usuarios/editar_perfil.html
+        cuentas_usuarios/templates/cuentas_usuarios/eliminar_perfil.html
+        cuentas_usuarios/templates/cuentas_usuarios/perfil.html
+        cuentas_usuarios/templates/cuentas_usuarios/login.html
+        cuentas_usuarios/templates/cuentas_usuarios/logout.html
+        cuentas_usuarios/templates/cuentas_usuarios/pasword_change_done.html
+        cuentas_usuarios/templates/cuentas_usuarios/pasword_change.html
+        cuentas_usuarios/templates/cuentas_usuarios/registro.html
 
 En esta preentrega se implementó el sistema de cuentas de usuario, separando la lógica en una nueva aplicación llamada `cuentas_usuarios` para mantener el proyecto ordenado y escalable.
 
