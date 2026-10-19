@@ -86,11 +86,7 @@ Para permitir que los usuarios puedan subir y visualizar imágenes en las public
 
 ## Cambios en la estructura
     se agregaron archivos necesarios para las funciones CRUD
-        posts/templates/posts/detalle_post.html
-        posts/templates/posts/post_form.html
-        posts/templates/posts/post_confirm_delete.html
-        posts/forms.py
-
+        posts/templates/posts/error_permisos
 
 En esta preentrega se implementó el sistema de cuentas de usuario, separando la lógica en una nueva aplicación llamada `cuentas_usuarios` para mantener el proyecto ordenado y escalable.
 
