@@ -1,0 +1,15 @@
+{% extends 'posts/base.html' %}
+
+{% block content %}
+    <h2>Editar Perfil de </h2>    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+    {% if user.perfil.avatar %}
+        
+        <img src="{{ user.perfil.avatar.url }}" alt="Imagen de perfil" style="max-width: 100px; max-height: 100px;">
+     
+    {% endif %}
+        <button type="submit" class = "btn-submit">Guardar Cambios</button>
+    </form>
+{% endblock %}

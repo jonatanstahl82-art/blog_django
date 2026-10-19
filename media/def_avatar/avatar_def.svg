@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1080 1080">
+  <!-- Generator: Adobe Illustrator 30.8.2, SVG Export Plug-In . SVG Version: 2.1.4 Build 7)  -->
+  <defs>
+    <style>
+      .st0 {
+        stroke: url(#Degradado_sin_nombre_113);
+      }
+
+      .st0, .st1 {
+        fill: #c1cfec;
+      }
+
+      .st0, .st1, .st2 {
+        stroke-miterlimit: 10;
+        stroke-width: 16px;
+      }
+
+      .st1 {
+        stroke: url(#Nueva_muestra_de_degradado_1);
+      }
+
+      .st2 {
+        fill: url(#Degradado_sin_nombre_16);
+        stroke: #009fe3;
+      }
+    </style>
+    <linearGradient id="Degradado_sin_nombre_16" data-name="Degradado sin nombre 16" x1="15" y1="540" x2="1065" y2="540" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2581c4"/>
+      <stop offset="1" stop-color="#2581c4" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="Nueva_muestra_de_degradado_1" data-name="Nueva muestra de degradado 1" x1="336.36" y1="310.45" x2="743.64" y2="310.45" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#009fe3"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+    <linearGradient id="Degradado_sin_nombre_113" data-name="Degradado sin nombre 113" x1="141.27" y1="810.16" x2="938.73" y2="810.16" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#009fe3"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+  </defs>
+  <circle class="st2" cx="540" cy="540" r="525"/>
+  <ellipse class="st1" cx="540" cy="310.45" rx="195.64" ry="262.34"/>
+  <ellipse class="st0" cx="540" cy="810.16" rx="390.73" ry="216.59"/>
+</svg>

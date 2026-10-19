@@ -5,7 +5,7 @@
     <p>Aquí está la lista de todos los posts.</p>
     <ol>
         {% for post in posts %}
-            <li style="background-color: #f0f0f0; padding: 10px; margin-bottom: 5px;">
+            <li style="background-color: #f0f0f0; padding: 10px; margin-bottom: 5px; border-radius: 12px;">
                 <h3 style="font-family: 'Helvetica Neue', Arial, sans-serif; "><strong>{{ post.titulo }}</strong></h3>
                 <h4 style="font-family: 'Helvetica Neue', Arial, sans-serif; "><strong>Autor:</strong> {{ post.autor }}</h4>
                 <p><strong>Contenido:</strong> {{ post.contenido|truncatewords:20 }}</p>

@@ -33,13 +33,18 @@ h1 {
 }
 
 h2 {
-    color: #481a76;
+    color: #1a5276;
     margin-top: 20px;
+}
+
+h3 {
+    color: #1a5276;
+    margin-top: 20px;    
 }
 
 /* Textos */
 p {
-    color: #103d0d;
+    color: #1e1137;
     line-height: 1.6;
     margin-bottom: 15px;
 }
@@ -69,6 +74,29 @@ nav a {
 }
 
 nav a:hover {
+    color: #f1c40f;
+}
+
+/* Contenedor de la lista vertical */
+.menu-vertical {
+    list-style-type: none; /* Le saca los puntitos */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column; /* MAGIA: los apila uno abajo del otro */
+    gap: 15px; /* Espacio vertical entre los enlaces */
+}
+
+/* Estilo exacto para los enlaces que estén dentro de este menú */
+.menu-vertical a {
+    text-decoration: none;
+    color: #1a5276;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+/* Efecto hover exacto */
+.menu-vertical a:hover {
     color: #f1c40f;
 }
 
@@ -104,4 +132,16 @@ nav a:hover {
     border-radius: 20px;
     padding: 12px 28px;
     cursor: pointer;
+}
+
+/* Esto hace que los títulos de los campos del formulario queden arriba */
+form label {
+    display: block;
+    margin-bottom: 5px; /* Le da un respirito entre el texto y el cuadro */
+    font-weight: bold; /* Opcional: los pone en negrita para que queden más prolijos */
+}
+
+/* Opcional: Si querés que el cuadro de texto de la biografía no sea tan pegado al borde */
+form textarea, form input {
+    margin-bottom: 15px; 
 }

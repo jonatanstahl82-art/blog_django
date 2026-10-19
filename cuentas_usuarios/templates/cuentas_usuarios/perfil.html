@@ -1,0 +1,46 @@
+{% extends 'posts/base.html' %}
+
+{% block content %}
+    <h2 style="display: flex; align-items: center; gap: 10px;">
+    Perfil de Usuario
+    {% if user.is_superuser %}
+        <span style="font-size: 14px; background-color: #ffc107; color: #333; padding: 4px 8px; border-radius: 5px; font-weight: bold;">
+            Administrador
+        </span>
+    {% endif %}
+</h2>
+    {% if user.perfil.avatar %}
+    <!-- Si el usuario subió su propia foto, mostramos esa -->
+        <img src="{{ user.perfil.avatar.url }}" alt="Imagen de perfil" style="max-width: 100px; max-height: 100px; border-radius: 50%;">
+    {% else %}
+    <!-- Si está vacío, forzamos la ruta de tu avatar por defecto -->
+    <img src="/media/def_avatar/avatar_def.svg" alt="Avatar por defecto" style="max-width: 100px; max-height: 100px; border-radius: 50%;">
+    {% endif %}
+    <p><strong>Nombre de usuario:</strong> {{ user.username }}</p>
+    <p><strong>Correo electrónico:</strong> {{ user.email }}</p>
+    {% if user.perfil.biografia %}
+        <p><strong>Biografía:</strong> {{ user.perfil.biografia }}</p>
+    {% endif %}
+    <nav>
+            <ul>
+                <li><a href="{% url 'editar_perfil' %}">Editar Perfil</a></li>
+                <li></li><a href="{% url 'eliminar_perfil' %}" style="color: red; margin-left: 20px;">Eliminar Perfil</a></li>
+            </ul>
+        </nav>
+    <hr style="margin-top: 30px;"> <!-- Línea separadora -->
+    <h3>Mis Posts Publicados</h3>
+    {% if posts %}
+        <ul class = 'menu-vertical'>
+            {% for post in posts %}
+                <li>
+                    <a href="{% url 'detalle_post' post.id %}">{{ post.titulo }}</a> - {{ post.fecha_creacion|date:"d M Y" }} | <a href="{% url 'editar_post' post.id %}" style="color: #007BFF; text-decoration: none;">Editar</a> | <a href="{% url 'post_confirm_delete' post.id %}" style="color: #DC3545; text-decoration: none;">Eliminar</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No has publicado ningún post aún.</p>
+    {% endif %}
+    
+    
+    
+{% endblock %}

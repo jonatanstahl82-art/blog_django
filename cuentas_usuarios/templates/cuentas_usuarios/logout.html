@@ -1,0 +1,16 @@
+{% extends 'posts/base.html' %} <!-- Ajustalo al nombre de tu plantilla base -->
+
+{% block content %}
+<!-- Esta etiqueta es el temporizador. El "3" son los segundos, luego de la url -->
+<head>
+    <meta http-equiv="refresh" content="3;url={% url 'inicio' %}">
+</head>
+
+<div style="text-align: center; margin-top: 50px;">
+    <h2>¡Sesión cerrada con éxito!</h2>
+    <p>Gracias por visitarnos. Serás redirigido al inicio en unos segundos...</p>
+    
+    <!-- Un enlace por si el navegador del usuario bloquea la redirección automática -->
+    <p><small>Si no te redirige automáticamente, <a href="{% url 'inicio' %}">haz clic aquí</a>.</small></p>
+</div>
+{% endblock %}

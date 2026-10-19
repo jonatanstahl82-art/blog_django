@@ -81,3 +81,46 @@ Para permitir que los usuarios puedan subir y visualizar imágenes en las public
 
    if settings.DEBUG:
        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Actualización Preentrega 11: Autenticación, Usuarios y Perfiles en Django
+
+## Cambios en la estructura
+    se agregaron archivos necesarios para las funciones CRUD
+        posts/templates/posts/detalle_post.html
+        posts/templates/posts/post_form.html
+        posts/templates/posts/post_confirm_delete.html
+        posts/forms.py
+
+
+En esta preentrega se implementó el sistema de cuentas de usuario, separando la lógica en una nueva aplicación llamada `cuentas_usuarios` para mantener el proyecto ordenado y escalable.
+
+## 🚀 Nuevas Funcionalidades
+
+1. **Gestión de Usuarios (App `cuentas_usuarios`):**
+   * **Registro:** Los usuarios nuevos pueden crearse una cuenta desde la página de registro.
+   * **Login / Logout:** Sistema seguro de inicio y cierre de sesión.
+   * **Perfil de Usuario:** Cada usuario tiene su propia página de perfil donde puede ver sus datos y una lista de los posts que publicó.
+   
+2. **Modelo de Perfil Extendido:**
+   * Se creó el modelo `Perfil` vinculado al usuario de Django (OneToOneField).
+   * Permite agregar una **Biografía** y subir un **Avatar** (imagen de perfil).
+   * Si el usuario no sube una foto, el sistema asigna automáticamente un avatar `.svg` por defecto.
+
+3. **Edición y Eliminación de Cuentas:**
+   * Los usuarios logueados pueden editar su biografía y cambiar su avatar.
+   * Implementación de borrado de cuenta con pantalla de confirmación por seguridad.
+
+## 🛡️ Seguridad y Protección de Rutas
+
+Se implementaron restricciones para proteger el contenido:
+* Se utilizó `@login_required` para que solo los usuarios registrados puedan crear posts o acceder a su perfil.
+* **Validación de Autores:** Si un usuario intenta editar o eliminar un post que no le pertenece, el sistema bloquea la acción, muestra una pantalla de "Acceso Denegado" con diseño personalizado y lo redirige automáticamente a la lista de posts en 3 segundos.
+
+## 🧪 Cómo probar el panel de administración
+
+Se incluye la base de datos `db.sqlite3` para facilitar la corrección. 
+Para ingresar al panel de administración (`/admin`) y verificar los modelos registrados, pueden utilizar el siguiente superusuario de prueba:
+
+* **Usuario:** jonatanstahl
+* **Contraseña:** asqw12zx
+

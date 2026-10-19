@@ -1,0 +1,32 @@
+{% extends 'posts/base.html' %}
+
+{% block content %}
+    <div style="text-align: center; background-color: #f8d7da; color: #721c24; padding: 40px; border-radius: 8px; margin-top: 50px; border: 1px solid #f5c6cb;">
+        <h2>Acceso Denegado</h2>
+        <p style="font-size: 18px;">No tienes permiso para modificar o eliminar este post.</p>
+        <p>Serás redirigido a la página principal en <strong id="contador">3</strong> segundos...</p>
+        
+        <br>
+        <a href="{% url 'inicio' %}" class="btn-submit" style="text-decoration: none; display: inline-block;">Volver ahora</a>
+    </div>
+
+    <!-- Script para la redirección y el contador regresivo -->
+    <script>
+        // Cambiá 'inicio' por el nombre real de la url a donde lo querés mandar
+        let urlDestino = "{% url 'lista_posts' %}"; 
+        
+        // Redirección a los 3 segundos (3000 ms)
+        setTimeout(function() {
+            window.location.href = urlDestino;
+        }, 3000);
+
+        // Actualizar el número en pantalla cada segundo
+        let segundos = 3;
+        setInterval(function() {
+            segundos--;
+            if (segundos > 0) {
+                document.getElementById('contador').innerText = segundos;
+            }
+        }, 1000);
+    </script>
+{% endblock %}

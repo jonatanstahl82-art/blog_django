@@ -1,0 +1,18 @@
+{% extends 'posts/base.html' %}
+
+{% block content %}
+    <h2>Eliminar Perfil</h2>
+    
+    <div style="background-color: #f8d7da; color: #721c24; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+        <p><strong>¡Atención!</strong> ¿Estás seguro de que querés eliminar tu perfil ({{ user.username }})?</p>
+        <p>Esta acción es permanente y no se puede deshacer.</p>
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" style="background-color: #DC3545; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+            Sí, eliminar mi perfil
+        </button>
+        <a href="{% url 'perfil' %}" style="margin-left: 15px; color: #1a5276; text-decoration: none;">Cancelar y volver</a>
+    </form>
+{% endblock %}

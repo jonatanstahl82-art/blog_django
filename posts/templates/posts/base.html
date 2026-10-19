@@ -15,7 +15,25 @@
                 <li><a href="{% url 'inicio' %}">Inicio</a></li>
                 <li><a href="{% url 'lista_posts' %}">Posts</a></li>
                 <li><a href="{% url 'acerca' %}">Acerca</a></li>
-                <li><a href="{% url 'post_form' %}">Crear Post</a></li>               
+                <li><a href="{% url 'post_form' %}">Crear Post</a></li> 
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                    <li>
+    <!-- Este es un enlace real, por lo que se verá idéntico a "Perfil" o "Posts" -->
+    <a href="#" onclick="document.getElementById('form-logout').submit(); return false;">
+        Cerrar Sesión
+    </a>
+    
+    <!-- Este es el formulario oculto que hace el trabajo sucio -->
+    <form id="form-logout" action="{% url 'logout' %}" method="POST" style="display: none;">
+        {% csrf_token %}
+    </form>
+</li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+                        <li><a href="{% url 'registro' %}">Registrarse</a></li>
+                    {% endif %}
+                             
             </ul>
         </nav>
     </header>
