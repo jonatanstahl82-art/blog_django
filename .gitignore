@@ -17,4 +17,6 @@ __pycache__/
 
 venv/
 blog_consola/
-media/avatars
+media/
+.env
+

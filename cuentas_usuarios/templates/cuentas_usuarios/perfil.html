@@ -1,32 +1,38 @@
 {% extends 'posts/base.html' %}
+{% load static %}
 
 {% block content %}
     <h2 style="display: flex; align-items: center; gap: 10px;">
     Perfil de Usuario
-    {% if user.is_superuser %}
+    {% if perfil_user.is_superuser %}
         <span style="font-size: 14px; background-color: #ffc107; color: #333; padding: 4px 8px; border-radius: 5px; font-weight: bold;">
             Administrador
         </span>
     {% endif %}
 </h2>
-    {% if user.perfil.avatar %}
+    {% if perfil_user.perfil.avatar %}
     <!-- Si el usuario subió su propia foto, mostramos esa -->
-        <img src="{{ user.perfil.avatar.url }}" alt="Imagen de perfil" style="max-width: 100px; max-height: 100px; border-radius: 50%;">
+        <img src="{{ perfil_user.perfil.avatar.url }}" alt="Imagen de perfil" style="max-width: 100px; max-height: 100px; border-radius: 50%;">
     {% else %}
     <!-- Si está vacío, forzamos la ruta de tu avatar por defecto -->
-    <img src="/media/def_avatar/avatar_def.svg" alt="Avatar por defecto" style="max-width: 100px; max-height: 100px; border-radius: 50%;">
+    <img src="{% static 'img/avatar_def.svg' %}" alt="Avatar por defecto" style="max-width: 80px; max-height: 80px; border-radius: 50%;">
     {% endif %}
-    <p><strong>Nombre de usuario:</strong> {{ user.username }}</p>
-    <p><strong>Correo electrónico:</strong> {{ user.email }}</p>
-    {% if user.perfil.biografia %}
-        <p><strong>Biografía:</strong> {{ user.perfil.biografia }}</p>
+    <p><strong>Nombre de usuario:</strong> {{ perfil_user.username }}</p>
+    <p><strong>Correo electrónico:</strong> {{ perfil_user.email }}</p>
+    {% if perfil_user.perfil.biografia %}
+        <p><strong>Biografía:</strong> {{ perfil_user.perfil.biografia }}</p>
     {% endif %}
-    <nav>
+    {% if perfil_user.perfil.link_web %}
+        <p><strong>Web:</strong> <a href="{{ perfil_user.perfil.link_web }}" target="_blank">{{ perfil_user.perfil.link_web }}</a></p>
+    {% endif %}
+    {% if es_propio_perfil %}
+        <nav>
             <ul>
                 <li><a href="{% url 'editar_perfil' %}">Editar Perfil</a></li>
-                <li></li><a href="{% url 'eliminar_perfil' %}" style="color: red; margin-left: 20px;">Eliminar Perfil</a></li>
+                <li><a href="{% url 'eliminar_perfil' %}" style="color: red; margin-left: 20px;">Eliminar Perfil</a></li>
             </ul>
         </nav>
+    {% endif %}
     <hr style="margin-top: 30px;"> <!-- Línea separadora -->
     <h3>Mis Posts Publicados</h3>
     {% if posts %}

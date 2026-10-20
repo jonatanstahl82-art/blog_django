@@ -2,8 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from cuentas_usuarios.models import Perfil
-
-class FormularioRegistro(UserCreationForm): # Formulario de registro personalizado que hereda de UserCreationForm
+# FORMULARIOS DE REGISTRO Y EDICION DE PERFILES 
+class FormularioRegistro(UserCreationForm): 
     email = forms.EmailField(required=True) # Campo de correo electrónico obligatorio
     biografia = forms.CharField(widget=forms.Textarea, required=False) # Campo de biografía opcional con un área de texto
 
@@ -30,4 +30,10 @@ class FormularioRegistro(UserCreationForm): # Formulario de registro personaliza
 class PerfilForm(forms.ModelForm): # Formulario para editar el perfil del usuario
     class Meta:
         model = Perfil
-        fields = ['biografia', 'avatar',] # Campos del perfil que se pueden editar
+        fields = ['biografia', 'avatar', 'link_web',] # Campos del perfil que se pueden editar
+
+        labels = {
+            'biografia' : 'Biografía',
+            'avatar': 'Foto de perfil',
+            'link_web': 'Sitio Web Personal',
+        }

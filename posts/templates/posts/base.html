@@ -18,7 +18,10 @@
                 <li><a href="{% url 'post_form' %}">Crear Post</a></li> 
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'perfil' %}">Perfil</a></li>
-                    <li>
+                {% if user.is_superuser %}
+                    <li><a href="{% url 'lista_usuarios' %}">Usuarios</a></li>
+                {% endif %}
+<li>
     <!-- Este es un enlace real, por lo que se verá idéntico a "Perfil" o "Posts" -->
     <a href="#" onclick="document.getElementById('form-logout').submit(); return false;">
         Cerrar Sesión

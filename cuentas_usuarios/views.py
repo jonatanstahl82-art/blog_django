@@ -1,49 +1,96 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404  
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.models import User
+from django.contrib import messages
 
-# Importaciones de tu propia app (nota el punto antes de forms y models)
+
 from .forms import FormularioRegistro, PerfilForm
 from .models import Perfil
+from posts.models import Post
 
-from posts.models import Post  # Asegúrate de que la ruta sea correcta según tu estructura de proyecto
 
-def registro(request): # Vista para manejar el registro de nuevos usuarios
+def registro(request):
     if request.method == 'POST':
         form = FormularioRegistro(request.POST)
         if form.is_valid():
-            usuario = form.save()
-            return redirect('login')  # Redirige al usuario a la página de login después del registro
+            form.save()
+            return redirect('login')
     else:
         form = FormularioRegistro()
     return render(request, 'cuentas_usuarios/registro.html', {'form': form})
 
+#A PARTIR DE ACA ESTAN LAS FUNCIONES QUE REQUIEREN AUTENTICACION
 @login_required
-def perfil(request):
-    perfil_usuario, created = Perfil.objects.get_or_create(user=request.user)  # Obtiene o crea un perfil para el usuario actual
-    posts_usuario = Post.objects.filter(autor=request.user)
-    return render(request, 'cuentas_usuarios/perfil.html', {'perfil': perfil_usuario, 'posts': posts_usuario})
+def perfil(request, user_id=None):  
+    if user_id and request.user.is_superuser:
+        usuario_ver = get_object_or_404(User, id=user_id)
+    else:
+        usuario_ver = request.user
+
+    perfil_usuario, created = Perfil.objects.get_or_create(user=usuario_ver)
+    posts_usuario = Post.objects.filter(autor=usuario_ver)
+
+    context = {
+        'perfil': perfil_usuario,
+        'perfil_user': usuario_ver,
+        'posts': posts_usuario,
+        'es_propio_perfil': (usuario_ver == request.user),
+    }
+
+    if request.user.is_superuser:
+        context['todos_los_usuarios'] = User.objects.all().order_by('username')
+
+    return render(request, 'cuentas_usuarios/perfil.html', context)
+
 
 @login_required
 def editar_perfil(request):
-    perfil_usuario, created = Perfil.objects.get_or_create(user=request.user)  # Obtiene o crea un perfil para el usuario actual
+    perfil_usuario, created = Perfil.objects.get_or_create(user=request.user)
     if request.method == 'POST':
         form = PerfilForm(request.POST, request.FILES, instance=perfil_usuario)
         if form.is_valid():
             form.save()
-            return redirect('perfil')  # Redirige al usuario a su perfil después de guardar los cambios
+            return redirect('perfil')
     else:
-        form = PerfilForm(instance=perfil_usuario)  # Crea un formulario con los datos actuales del perfil
+        form = PerfilForm(instance=perfil_usuario)
     return render(request, 'cuentas_usuarios/editar_perfil.html', {'form': form}) 
+
 
 @login_required
 def eliminar_perfil(request):
-    # Obtenemos el perfil de forma segura para pasarlo al HTML
     perfil_usuario, created = Perfil.objects.get_or_create(user=request.user)  
 
     if request.method == 'POST':
         user = request.user
-        user.delete()  # Esto borra al usuario y en cascada a su perfil
-        return redirect('inicio')  # Asegurate de tener una ruta 'home' o cambiala por la que uses
+        user.delete()
+        return redirect('inicio')
         
-    # Le pasamos el perfil al contexto para que lo puedas usar en eliminar_perfil.html
     return render(request, 'cuentas_usuarios/eliminar_perfil.html', {'perfil': perfil_usuario})
+
+# A PARTIR DE ACA ESTAN LAS FUNCIONES ADMIN
+def es_admin(user):
+    return user.is_authenticated and user.is_superuser
+
+
+@login_required
+@user_passes_test(es_admin)
+def lista_usuarios(request):
+    usuarios = User.objects.all().order_by('-date_joined')
+    return render(request, 'cuentas_usuarios/lista_usuarios.html', {'usuarios': usuarios})
+
+
+@login_required
+@user_passes_test(es_admin)
+def eliminar_usuario_admin(request, user_id): 
+    usuario = get_object_or_404(User, id=user_id)
+    
+    if usuario == request.user:
+        messages.error(request, "No podés eliminar tu propia cuenta desde este panel.")
+        return redirect('lista_usuarios')
+
+    if request.method == 'POST':
+        usuario.delete()
+        messages.success(request, f"El usuario '{usuario.username}' fue eliminado correctamente.")
+        return redirect('lista_usuarios')
+
+    return render(request, 'cuentas_usuarios/usuario_confirm_delete.html', {'usuario_borrar': usuario})

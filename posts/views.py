@@ -24,11 +24,11 @@ def acerca(request): # Vista para la página "Acerca de"
 def post_form(request): # Vista para crear un nuevo post
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
-        post = form.save(commit=False)
-        post.autor = request.user 
         if form.is_valid():
-            form.save()
-            return render(request, 'posts/inicio.html')
+            post = form.save(commit=False)
+            post.autor = request.user 
+            post.save()  # Guardamos la instancia 'post' que ya tiene asignado el autor
+            return redirect('lista_posts')
     else:
         form = PostForm()
     return render(request, 'posts/post_form.html', {'form': form})
@@ -48,7 +48,7 @@ def editar_post(request, post_id): # Vista para editar un post existente
         form = PostForm(instance=post)
         
     # Renderizado para mostrar el formulario (GET o POST con errores)
-    return render(request, 'posts/post_form.html', {'form': form, 'es_edicion': True})
+    return render(request, 'posts/post_form.html', {'form': form, 'es_edicion': True}) 
 
 @login_required
 def post_confirm_delete(request, post_id): # Vista para eliminar un post existente

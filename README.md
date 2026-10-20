@@ -1,122 +1,93 @@
-# Blog Django
-Proyecto base de un blog web desarrollado con Django.
-## Descripción
-Este repositorio contiene la estructura inicial de un proyecto Django para construir un blog.  
-Incluye la configuración base del proyecto y una aplicación llamada `posts`.
-## Instalación
+# Blog Django 📝
+
+Proyecto final de aplicación web desarrollada con **Django**. Permite a los usuarios registrarse, gestionar sus publicaciones con soporte multimedia, personalizar su perfil y administrar la plataforma.
+
+
+## 🚀 Funcionalidades Principales
+
+### 📰 Gestión de Publicaciones (App `posts`)
+* **CRUD Completo:** Creación, lectura (listado general y detalle individual), edición y eliminación de publicaciones.
+* **Soporte Multimedia:** Carga y renderizado de imágenes asociadas a cada post.
+* **Validación de Autoría:** Solo el autor de la publicación (o un superusuario) tiene permisos para editarla o eliminarla.
+
+### 👤 Cuentas y Perfiles (App `cuentas_usuarios`)
+* **Autenticación Completa:** Registro de usuarios, inicio (`LoginView`) y cierre de sesión (`LogoutView`).
+* **Perfil Extendido (`Perfil` model):**
+  * Vinculación `OneToOneField` con la cuenta de usuario.
+  * Campos para **Biografía**, **Página Web** y **Avatar**.
+  * Asignación automática de avatar por defecto (`.svg`) cuando el usuario no adjunta foto.
+* **Edición y Eliminación de Cuenta:** Gestión de datos personales y borrado de cuenta con confirmación previa.
+* **Administración de Usuarios:** Vistas exclusivas para que los administradores puedan inspeccionar perfiles ajenos y gestionar cuentas desde el frontend.
+
+### 🛡️ Seguridad y Permisos
+* Protección de rutas mediante decoradores `@login_required` (auetenticación requerida) y `@user_passes_test`. (usuario administrador requerido)
+* Pantalla de **Acceso Denegado** (`error_permisos.html`) con redirección automática si un usuario intenta modificar contenido no autorizado.
+
+---
+
+## 📁 Estructura del Proyecto
+
+blog_project/
+│
+├── blog_project/                      # Configuración principal del proyecto (settings, urls, etc.)
+├── posts/                             # App para publicaciones (modelos, vistas, formularios, templates)
+│   └── templates/posts/               # Plantillas: detalle_post, post_form, post_confirm_delete, error_permisos
+├── cuentas_usuarios/                  # App para autenticación y perfiles
+│   └── templates/cuentas_usuarios/    # Plantillas: login, registro, perfil, editar_perfil, etc.
+├── media/                             # Archivos multimedia subidos por usuarios (avatares e imágenes)
+├── static/                            # Estilos CSS generales y recursos estáticos
+├── db.sqlite3                         # Base de datos local
+├── manage.py
+└── requirements.txt
+
+🛠️ Instalación y Configuración
 Clonar el repositorio:
-```bash
-git clone https://github.com/jonatanstahl82-art/blog_django.git
-```
-Entrar a la carpeta del proyecto:
-```
+
+
+git clone [https://github.com/jonatanstahl82-art/blog_django.git](https://github.com/jonatanstahl82-art/blog_django.git)
 cd blog_django
-```
-Crear entorno virtual:
+Crear y activar el entorno virtual:
+
+Windows (PowerShell):
+
+
 python -m venv venv
-Activar entorno virtual:
-En Windows PowerShell:
-```
 .\venv\Scripts\Activate.ps1
-```
-En Linux o macOS:
-```
+Linux / macOS:
+
+
+python -m venv venv
 source venv/bin/activate
-```
 Instalar dependencias:
-```
+
+
 pip install -r requirements.txt
-```
-Ejecutar el servidor:
-```
+Aplicar migraciones:
+
+
+python manage.py migrate
+Ejecutar el servidor de desarrollo:
+
+
 python manage.py runserver
-```
 Abrir en el navegador:
-http://127.0.0.1:8000/
-Aplicaciones
-- posts: aplicación inicial para manejar las publicaciones del blog.
+Ingresar a http://127.0.0.1:8000/
 
-# Actualizacion del blog!
-se agregaron estilos con css y la navegacion por urls
+⚙️ Configuración de Archivos Multimedia (Media)
+Para permitir el manejo de imágenes en entorno de desarrollo (DEBUG = True), se configuraron los siguientes parámetros:
 
-# Actualización  Preentrega 10: CRUD de Posts con Imágenes en Django
+settings.py:
 
-## Cambios en la estructura
-    se afgregaron archivos necesarios para las funciones CRUD
-        posts/templates/posts/detalle_post.html
-        posts/templates/posts/post_form.html
-        posts/templates/posts/post_confirm_delete.html
-        posts/forms.py
+Python
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+blog_project/urls.py:
 
-## Cómo Probar la Carga de Imágenes y el CRUD Completo
+Python
+from django.conf import settings
+from django.conf.urls.static import static
 
-1. Crear un Post con Imagen:
-   - Navega a la sección Crear Post.
-   - Completa los campos obligatorios y adjunta un archivo de imagen en el campo correspondiente.
-   - Presiona Publicar. Serás redirigido a la lista general donde podrás visualizar la tarjeta del post con su imagen renderizada.
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-2. Editar un Post y Modificar su Imagen:
-   - En la lista de posts, haz clic en el botón Editar de cualquier publicación.
-   - Selecciona una nueva imagen o modifica los datos del formulario y guarda los cambios.
-
-3. Ver Detalle del Post:
-   - Haz clic en Ver Detalle para corroborar la vista individual de la publicación junto a su imagen en tamaño completo.
-
-4. Eliminar un Post:
-   - Haz clic en el botón Eliminar y confirma la acción en la pantalla de confirmación.
-
-## Configuración de Archivos Multimedia (Media)
-
-Para permitir que los usuarios puedan subir y visualizar imágenes en las publicaciones, se realizaron las siguientes configuraciones:
-
-1. Ajustes en settings.py:
-   Se definieron las constantes para la gestión de archivos cargados por el usuario:
-   MEDIA_URL = '/media/'
-   MEDIA_ROOT = BASE_DIR / 'media'
-
-2. Configuración de URLs para Entorno de Desarrollo:
-   En blog_project/urls.py se habilitó el servicio de archivos estáticos y multimedia durante la fase de desarrollo (DEBUG = True):
-   from django.conf import settings
-   from django.conf.urls.static import static
-
-   if settings.DEBUG:
-       urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-# Actualización Preentrega 11: Autenticación, Usuarios y Perfiles en Django
-
-## Cambios en la estructura
-    se agregaron archivos necesarios para las funciones CRUD
-        posts/templates/posts/error_permisos
-
-En esta preentrega se implementó el sistema de cuentas de usuario, separando la lógica en una nueva aplicación llamada `cuentas_usuarios` para mantener el proyecto ordenado y escalable.
-
-## 🚀 Nuevas Funcionalidades
-
-1. **Gestión de Usuarios (App `cuentas_usuarios`):**
-   * **Registro:** Los usuarios nuevos pueden crearse una cuenta desde la página de registro.
-   * **Login / Logout:** Sistema seguro de inicio y cierre de sesión.
-   * **Perfil de Usuario:** Cada usuario tiene su propia página de perfil donde puede ver sus datos y una lista de los posts que publicó.
-   
-2. **Modelo de Perfil Extendido:**
-   * Se creó el modelo `Perfil` vinculado al usuario de Django (OneToOneField).
-   * Permite agregar una **Biografía** y subir un **Avatar** (imagen de perfil).
-   * Si el usuario no sube una foto, el sistema asigna automáticamente un avatar `.svg` por defecto.
-
-3. **Edición y Eliminación de Cuentas:**
-   * Los usuarios logueados pueden editar su biografía y cambiar su avatar.
-   * Implementación de borrado de cuenta con pantalla de confirmación por seguridad.
-
-## 🛡️ Seguridad y Protección de Rutas
-
-Se implementaron restricciones para proteger el contenido:
-* Se utilizó `@login_required` para que solo los usuarios registrados puedan crear posts o acceder a su perfil.
-* **Validación de Autores:** Si un usuario intenta editar o eliminar un post que no le pertenece, el sistema bloquea la acción, muestra una pantalla de "Acceso Denegado" con diseño personalizado y lo redirige automáticamente a la lista de posts en 3 segundos.
-
-## 🧪 Cómo probar el panel de administración
-
-Se incluye la base de datos `db.sqlite3` para facilitar la corrección. 
-Para ingresar al panel de administración (`/admin`) y verificar los modelos registrados, pueden utilizar el siguiente superusuario de prueba:
-
-* **Usuario:** jonatanstahl
-* **Contraseña:** asqw12zx
 

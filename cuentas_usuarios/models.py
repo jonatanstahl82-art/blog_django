@@ -10,7 +10,11 @@ class Perfil(models.Model): # Modelo para almacenar información adicional del u
         upload_to='avatars/', 
         null=True, 
         blank=True,
-        default='media/def_avatar/avatar_def.svg')
+        )
+    link_web = models.URLField(
+        null=True, 
+        blank=True,
+    )
 
     def __str__(self):
         return self.user.username
